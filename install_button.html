@@ -1,0 +1,28 @@
+<button id="installBtn" style="padding:12px 24px; background:#a10000; color:white; border:none; border-radius:10px; cursor:pointer; font-size:16px;">
+  📲 Install REILP App
+</button>
+
+<script>
+  let deferredPrompt;
+  const installBtn = document.getElementById('installBtn');
+  installBtn.style.display = 'none';
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'inline-block';
+
+    installBtn.addEventListener('click', () => {
+      installBtn.style.display = 'none';
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install');
+        } else {
+          console.log('User dismissed the install');
+        }
+        deferredPrompt = null;
+      });
+    });
+  });
+</script>

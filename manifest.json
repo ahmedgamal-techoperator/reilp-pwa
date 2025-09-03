@@ -1,0 +1,22 @@
+{
+  "name": "REI Lead Pros",
+  "short_name": "REILP",
+  "id": "https://www.reilp.com",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#a10000",
+  "description": "Real Estate Investment Leads App",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
