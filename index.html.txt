@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REILP App</title>
+
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Theme color -->
+  <meta name="theme-color" content="#a10000">
+
+  <!-- Icons -->
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-512.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f5f5f5;
+    }
+    img.logo {
+      width: 220px;
+      margin-bottom: 30px;
+    }
+    button.install-btn {
+      padding: 15px 25px;
+      font-size: 18px;
+      background-color: #a10000;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button.install-btn:hover {
+      background-color: #800000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo -->
+  <img src="icons/logo.png" alt="REILP Logo" class="logo">
+
+  <h1>🚀 REILP PWA Ready!</h1>
+  <p>You can install this app on your device.</p>
+
+  <!-- Install Button -->
+  <button id="installBtn" class="install-btn">📲 Install REILP App</button>
+
+  <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const choiceResult = await deferredPrompt.userChoice;
+        if (choiceResult.outcome === 'accepted') {
+          console.log('App installed');
+        }
+        deferredPrompt = null;
+      }
+    });
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker Registered'));
+    }
+  </script>
+</body>
+</html>
